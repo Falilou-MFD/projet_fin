@@ -1,0 +1,85 @@
+-- Créer une nouvelle base de données dans MySQL
+CREATE DATABASE projet_platforme;
+USE projet_platforme;
+
+-- Créer les tables
+CREATE TABLE Authentification_Forum (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    mdp VARCHAR(255) NOT NULL,
+    nom VARCHAR(255),
+    prenom VARCHAR(255),
+    role VARCHAR(255),
+    creation DATE
+);
+
+CREATE TABLE Discussion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    createur INT,
+    titre VARCHAR(255),
+    sous_titre VARCHAR(255),
+    contenu TEXT,
+    creation DATE,
+    FOREIGN KEY (createur) REFERENCES Authentification_Forum(id)
+);
+
+CREATE TABLE Message (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    createur INT,
+    discussion INT,
+    contenu TEXT,
+    creation DATE,
+    FOREIGN KEY (createur) REFERENCES Authentification_Forum(id),
+    FOREIGN KEY (discussion) REFERENCES Discussion(id)
+);
+
+CREATE TABLE Etudiants (
+    num_etu VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    mdp VARCHAR(255) NOT NULL,
+    nom VARCHAR(255),
+    prenom VARCHAR(255),
+    dob DATE,
+    niveau VARCHAR(255),
+    session VARCHAR(255),
+    creation DATE
+);
+
+CREATE TABLE Administration (
+    num_admin VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    mdp VARCHAR(255) NOT NULL,
+    nom VARCHAR(255),
+    prenom VARCHAR(255),
+    poste VARCHAR(255),
+    creation DATE
+);
+
+CREATE TABLE Sujets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    chemin TEXT,
+    module VARCHAR(255),
+    niveau VARCHAR(255),
+    enseignant VARCHAR(255),
+    annee_pub DATE,
+    creation DATE
+);
+
+CREATE TABLE Profil (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    proprio VARCHAR(255),
+    annee_exp VARCHAR(255),
+    competences TEXT,
+    specialisation TEXT,
+    chemin_cv TEXT,
+    creation DATE,
+    FOREIGN KEY (proprio) REFERENCES Etudiants(num_etu)
+);
+
+CREATE TABLE Offre (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    proprietaire INT,
+    description TEXT,
+    date_publication DATE,
+    FOREIGN KEY (proprio) REFERENCES Profil(id)
+);
