@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from database import engine, SessionLocal
+from projet_plateforme.plateforme_app.database import engine, SessionLocal
 from models import student_model, admin_model, forum_user_model, subject_model, profile_model, discussion_model, message_model
 from routers import students, admins, forum_users, subjects, profiles, discussions, messages
 
@@ -51,4 +51,4 @@ def read_root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

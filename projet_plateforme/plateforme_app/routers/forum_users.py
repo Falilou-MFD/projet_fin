@@ -1,5 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
+from projet_plateforme.plateforme_app.models import forum_user_model
+from projet_plateforme.plateforme_app.crud import forum_user_crud
+from projet_plateforme.plateforme_app.schemas import forum_user_crud
 from . import models, schemas, crud
 from projet_plateforme.plateforme_app.database import SessionLocal, engine
 
