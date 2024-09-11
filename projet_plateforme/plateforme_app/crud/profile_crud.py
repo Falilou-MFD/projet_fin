@@ -1,6 +1,7 @@
+
 from sqlalchemy.orm import Session
-from models.profile_model import Profile
-from schemas.profile_schema import ProfileCreate
+from projet_plateforme.plateforme_app.models.profile_model import Profile
+from projet_plateforme.plateforme_app.schemas.profile_schema import ProfileCreate
 
 def create_profile(db: Session, profile: ProfileCreate):
     db_profile = Profile(**profile.dict())

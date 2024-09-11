@@ -1,9 +1,17 @@
-from sqlalchemy.orm import Session
-from models.student_model import Student
-from schemas.student_schema import StudentCreate
 
-def create_student(db: Session, student: StudentCreate):
-    db_student = Student(**student.dict())
+from sqlalchemy.orm import Session
+from projet_plateforme.plateforme_app.models.student_model import Student
+from projet_plateforme.plateforme_app.schemas.student_schema import StudentCreate
+from projet_plateforme.plateforme_app.auth import get_password_hash
+
+def create_student(db: Session, student: schemas.StudentCreate):
+    hashed_password = get_password_hash(student.password)  # Hacher le mot de passe
+    db_student = models.Student(
+        num_etu=student.num_etu,
+        name=student.name,
+        email=student.email,
+        hashed_password=hashed_password  # Enregistrer le mot de passe haché
+    )
     db.add(db_student)
     db.commit()
     db.refresh(db_student)
@@ -30,3 +38,4 @@ def delete_student(db: Session, num_etu: str):
         db.delete(student)
         db.commit()
     return student
+
