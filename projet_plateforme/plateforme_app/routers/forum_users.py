@@ -1,10 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from projet_plateforme.plateforme_app.models import forum_user_model
-from projet_plateforme.plateforme_app.crud import forum_user_crud
-from projet_plateforme.plateforme_app.schemas import forum_user_crud
-from . import models, schemas, crud
-from projet_plateforme.plateforme_app.database import SessionLocal, engine
+from models.forum_user_model import *
+from crud.forum_user_crud import *
+from database import SessionLocal, engine
+import crud_def as crud
 
 app = FastAPI()
 
@@ -16,10 +15,10 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/forum/users", response_model=schemas.ForumUser)
-def create_forum_user(forum_user: schemas.ForumUserCreate, db: Session = Depends(get_db)):
+@app.post("/forum/users", response_model=ForumUser)
+def create_forum_user(forum_user: ForumUserCreate, db: Session = Depends(get_db)):
     return crud.create_forum_user(db=db, forum_user=forum_user)
 
-@app.get("/forum/users/{id}", response_model=schemas.ForumUser)
+@app.get("/forum/users/{id}", response_model=ForumUser)
 def fetch_forum_user(id: int, db: Session = Depends(get_db)):
     return crud.get_forum_user(db, id=id)

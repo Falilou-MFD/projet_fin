@@ -1,12 +1,12 @@
 
 from sqlalchemy.orm import Session
-from projet_plateforme.plateforme_app.models.forum_user_model import ForumUser
-from projet_plateforme.plateforme_app.schemas.forum_user_schema import ForumUserCreate
-from projet_plateforme.plateforme_app.auth import get_password_hash
+from models.forum_user_model import ForumUser
+from schemas.forum_user_schema import ForumUserCreate
+from auth import get_password_hash
 
-def create_forum_user(db: Session, forum_user: schemas.ForumUserCreate):
+def create_forum_user(db: Session, forum_user: ForumUserCreate):
     hashed_password = get_password_hash(forum_user.password)  # Hacher le mot de passe
-    db_forum_user = models.ForumUser(
+    db_forum_user = ForumUser(
         username=forum_user.username,
         hashed_password=hashed_password  # Enregistrer le mot de passe haché
     )

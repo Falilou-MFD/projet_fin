@@ -1,11 +1,11 @@
 from sqlalchemy.orm import Session
-from projet_plateforme.plateforme_app.models.admin_model import Admin
-from projet_plateforme.plateforme_app.schemas.admin_schema import AdminCreate
-from projet_plateforme.plateforme_app.auth import get_password_hash
+from models.admin_model import Admin
+from schemas.admin_schema import AdminCreate
+from auth import get_password_hash
 
 def create_admin(db: Session, admin: AdminCreate):
     hashed_password = get_password_hash(admin.password)  # Hacher le mot de passe
-    db_admin = models.Admin(
+    db_admin = Admin(
         num_admin=admin.num_admin,
         name=admin.name,
         email=admin.email,

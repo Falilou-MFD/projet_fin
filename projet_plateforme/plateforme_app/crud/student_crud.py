@@ -1,12 +1,12 @@
 
 from sqlalchemy.orm import Session
-from projet_plateforme.plateforme_app.models.student_model import Student
-from projet_plateforme.plateforme_app.schemas.student_schema import StudentCreate
-from projet_plateforme.plateforme_app.auth import get_password_hash
+from models.student_model import Student
+from schemas.student_schema import StudentCreate
+from auth import get_password_hash
 
-def create_student(db: Session, student: schemas.StudentCreate):
+def create_student(db: Session, student: StudentCreate):
     hashed_password = get_password_hash(student.password)  # Hacher le mot de passe
-    db_student = models.Student(
+    db_student = Student(
         num_etu=student.num_etu,
         name=student.name,
         email=student.email,
