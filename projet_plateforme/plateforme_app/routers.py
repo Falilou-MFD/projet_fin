@@ -53,10 +53,18 @@ def fetch_single_discussion(id: int, db: Session = Depends(get_db)):
 def create_forum_user(forum_user: ForumUserCreate, db: Session = Depends(get_db)):
     return crud.create_forum_user(db=db, forum_user=forum_user)
 
-@app.get("/forum/users/{id}", response_model=ForumUser)
-def fetch_forum_user(id: int, db: Session = Depends(get_db)):
-    return crud.get_forum_user(db, id=id)
+# @app.get("/forum/users/{id}", response_model=ForumUser)
+# def fetch_forum_user(id: int, db: Session = Depends(get_db)):
+#     return crud.get_forum_user_by_id(db, id=id)
 
+@app.get("/forum/users/{id}", response_model=None)
+
+# @app.get("/forum/users/{id}", response_model=ForumUser)
+# def fetch_forum_user(id: int, db: Session = Depends(get_db)):
+#     db_forum_user = crud.get_forum_user_by_id(db, id=id)
+#     if not db_forum_user:
+#         raise HTTPException(status_code=404, detail="ForumUser not found")
+#     return db_forum_user
 
 @app.post("/messages", response_model=Message)
 def create_message(message: MessageCreate, db: Session = Depends(get_db)):

@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models.admin_model import *
-from crud.admin_crud import *
-from schemas.admin_schema import *
-from database import SessionLocal, engine
-import crud_def as crud
+from ..models.admin_model import *
+from ..crud.admin_crud import *
+from ..schemas.admin_schema import *
+from ..database import SessionLocal, engine
+from .. import crud_def as crud
 
 
 app = FastAPI()

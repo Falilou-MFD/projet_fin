@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from models.admin_model import Admin
-from schemas.admin_schema import AdminCreate
-from auth import get_password_hash
+from ..models.admin_model import Admin
+from ..schemas.admin_schema import AdminCreate
+from ..auth import get_password_hash
 
 def create_admin(db: Session, admin: AdminCreate):
     hashed_password = get_password_hash(admin.password)  # Hacher le mot de passe

@@ -36,11 +36,10 @@ class Discussion(DiscussionBase):
 
 class ForumUserBase(BaseModel):
     username: str
-    created_at : datetime
-
+    email: str
 
 class ForumUserCreate(ForumUserBase):
-    password = str
+    password: str
 
 class ForumUser(ForumUserBase):
     id: int

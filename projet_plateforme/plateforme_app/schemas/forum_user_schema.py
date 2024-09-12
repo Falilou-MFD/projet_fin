@@ -4,10 +4,10 @@ from datetime import datetime
 
 class ForumUserBase(BaseModel):
     username: str
-    password: str
+    email: str
 
 class ForumUserCreate(ForumUserBase):
-    pass
+    password: str
 
 class ForumUser(ForumUserBase):
     id: int

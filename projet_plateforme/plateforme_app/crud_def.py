@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from models.admin_model import Admin
-from schemas.admin_schema import AdminCreate
-from auth import get_password_hash
+from .models.admin_model import Admin
+from .schemas.admin_schema import AdminCreate
+from .auth import get_password_hash
 
 def create_admin(db: Session, admin: AdminCreate):
     hashed_password = get_password_hash(admin.password)  # Hacher le mot de passe
@@ -40,8 +40,8 @@ def delete_admin(db: Session, num_admin: str):
 
 
 from sqlalchemy.orm import Session
-from models.discussion_model import Discussion
-from schemas.discussion_schema import DiscussionCreate
+from .models.discussion_model import Discussion
+from .schemas.discussion_schema import DiscussionCreate
 
 def create_discussion(db: Session, discussion: DiscussionCreate):
     db_discussion = Discussion(**discussion.dict())
@@ -74,8 +74,8 @@ def delete_discussion(db: Session, discussion_id: int):
 
 
 from sqlalchemy.orm import Session
-from models.forum_user_model import ForumUser
-from schemas.forum_user_schema import ForumUserCreate
+from .models.forum_user_model import ForumUser
+from .schemas.forum_user_schema import ForumUserCreate
 
 def create_forum_user(db: Session, forum_user: ForumUserCreate):
     hashed_password = get_password_hash(forum_user.password)  # Hacher le mot de passe
@@ -112,8 +112,8 @@ def delete_forum_user(db: Session, user_id: int):
 
 
 from sqlalchemy.orm import Session
-from models.message_model import Message
-from schemas.message_schema import MessageCreate
+from .models.message_model import Message
+from .schemas.message_schema import MessageCreate
 
 def create_message(db: Session, message: MessageCreate):
     db_message = Message(**message.dict())
@@ -143,8 +143,8 @@ def delete_message(db: Session, message_id: int):
 
 
 from sqlalchemy.orm import Session
-from models.profile_model import Profile
-from schemas.profile_schema import ProfileCreate
+from .models.profile_model import Profile
+from .schemas.profile_schema import ProfileCreate
 
 def create_profile(db: Session, profile: ProfileCreate):
     db_profile = Profile(**profile.dict())
@@ -177,8 +177,8 @@ def delete_profile(db: Session, profile_id: int):
 
 
 from sqlalchemy.orm import Session
-from models.student_model import Student
-from schemas.student_schema import StudentCreate
+from .models.student_model import Student
+from .schemas.student_schema import StudentCreate
 
 def create_student(db: Session, student: StudentCreate):
     hashed_password = get_password_hash(student.password)  # Hacher le mot de passe
@@ -218,8 +218,8 @@ def delete_student(db: Session, num_etu: str):
 
 
 from sqlalchemy.orm import Session
-from models.subject_model import Subject
-from schemas.subject_schema import SubjectCreate
+from .models.subject_model import Subject
+from .schemas.subject_schema import SubjectCreate
 
 def create_subject(db: Session, subject: SubjectCreate):
     db_subject = Subject(**subject.dict())

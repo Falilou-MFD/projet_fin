@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models.forum_user_model import *
-from crud.forum_user_crud import *
-from database import SessionLocal, engine
-import crud_def as crud
+from ..models.forum_user_model import *
+from ..crud.forum_user_crud import *
+from ..database import SessionLocal, engine
+from .. import crud_def as crud
 
 app = FastAPI()
 

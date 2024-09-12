@@ -6,11 +6,11 @@ from datetime import timedelta, datetime
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import des fichiers locaux (auth, schemas, models, routers)
-from auth import create_access_token, verify_password, get_password_hash
-from schemas import Token, TokenData, UserInDB
-from database import engine, SessionLocal
-from models import student_model, admin_model, forum_user_model, subject_model, profile_model, discussion_model, message_model
-from routers import students, admins, forum_users, subjects, profiles, discussions, messages
+from .auth import create_access_token, verify_password, get_password_hash
+from .schemas import Token, TokenData, UserInDB
+from .database import engine, SessionLocal
+from .models import student_model, admin_model, forum_user_model, subject_model, profile_model, discussion_model, message_model
+from .routers import students, admins, forum_users, subjects, profiles, discussions, messages
 
 
 # Configuration des modèles (tables) dans la base de données
