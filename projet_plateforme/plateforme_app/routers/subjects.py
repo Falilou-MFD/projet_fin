@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from projet_plateforme.plateforme_app.models import subject_model
-from projet_plateforme.plateforme_app.crud import subject_crud
-from projet_plateforme.plateforme_app.schemas import subject_schema
-from . import models, schemas, crud
-from projet_plateforme.plateforme_app.database import SessionLocal, engine
+from models.subject_model import *
+from crud.subject_crud import *
+from schemas.subject_schema import *
+from database import SessionLocal, engine
+import crud_def as crud
 
 app = FastAPI()
 
@@ -16,10 +16,10 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/subjects", response_model=schemas.Subject)
-def create_subject(subject: schemas.SubjectCreate, db: Session = Depends(get_db)):
+@app.post("/subjects", response_model=Subject)
+def create_subject(subject: SubjectCreate, db: Session = Depends(get_db)):
     return crud.create_subject(db=db, subject=subject)
 
-@app.get("/subjects/{id}", response_model=schemas.Subject)
+@app.get("/subjects/{id}", response_model=Subject)
 def fetch_single_subject(id: int, db: Session = Depends(get_db)):
     return crud.get_subject(db, id=id)

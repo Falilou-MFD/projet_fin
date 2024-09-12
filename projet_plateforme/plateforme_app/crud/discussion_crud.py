@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from projet_plateforme.plateforme_app.models.discussion_model import Discussion
-from projet_plateforme.plateforme_app.schemas.discussion_schema import DiscussionCreate
+from models.discussion_model import Discussion
+from schemas.discussion_schema import DiscussionCreate
 
 def create_discussion(db: Session, discussion: DiscussionCreate):
     db_discussion = Discussion(**discussion.dict())
