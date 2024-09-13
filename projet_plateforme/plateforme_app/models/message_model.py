@@ -8,7 +8,7 @@ Base = declarative_base()
 class Message(Base):
     __tablename__ = "messages"
     id = Column(Integer, primary_key=True, index=True)
-    content = Column(String)
-    discussion_id = Column(Integer, ForeignKey('discussions.id'))
-    created_at = Column(DateTime, default=datetime.utcnow)
-    discussion = relationship("Discussion", back_populates="messages")
+    id_utilisateur = Column(Integer, ForeignKey('utilisateurs.id'))
+    id_discussion = Column(Integer, ForeignKey('discussions.id'))
+    contenu = Column(String)
+    creation = Column(DateTime, default=datetime.utcnow)

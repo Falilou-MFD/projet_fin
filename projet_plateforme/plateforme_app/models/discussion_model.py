@@ -8,6 +8,8 @@ Base = declarative_base()
 class Discussion(Base):
     __tablename__ = "discussions"
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    content = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    id_utilisateur = Column(Integer, ForeignKey('utilisateurs.id'))
+    titre = Column(String)
+    sous_titre = Column(String)
+    contenu = Column(String)
+    creation = Column(DateTime, default=datetime.utcnow)

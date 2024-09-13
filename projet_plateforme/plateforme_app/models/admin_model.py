@@ -8,9 +8,11 @@ Base = declarative_base()
 
 
 class Admin(Base):
-    __tablename__ = "admins"
-    id = Column(Integer, primary_key=True, index=True)
+    __tablename__ = "administrations"
     num_admin = Column(String, unique=True, index=True)
-    name = Column(String)
     email = Column(String, unique=True, index=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    mdp = Column(String)
+    prenom = Column(String)
+    nom = Column(String)
+    poste = Column(String)
+    creation = Column(DateTime, default=datetime.utcnow)

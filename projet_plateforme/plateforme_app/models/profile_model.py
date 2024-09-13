@@ -6,9 +6,11 @@ from datetime import datetime
 Base = declarative_base()
 
 class Profile(Base):
-    __tablename__ = "profiles"
+    __tablename__ = "profils"
     id = Column(Integer, primary_key=True, index=True)
-    student_id = Column(Integer, ForeignKey('students.id'))
-    bio = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    student = relationship("Student", back_populates="profile")
+    num_etu = Column(Integer, ForeignKey('etudiants.num_etu'))
+    annee_exp = Column(String)
+    competences = Column(String)
+    specialisation = Column(String)
+    chemin_cv = Column(String)
+    creation = Column(DateTime, default=datetime.utcnow)

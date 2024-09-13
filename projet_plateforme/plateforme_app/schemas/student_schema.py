@@ -2,36 +2,42 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-# Schéma pour Student
+
 class StudentBase(BaseModel):
-    num_etu: str
-    name: str
     email: str
+    mdp: str
+    prenom: str
+    nom: str
+    dob: str
+    niveau: str
 
 class StudentCreate(StudentBase):
     pass
 
 class Student(StudentBase):
-    id: int
-    created_at: datetime
+    num_etu: int
+    creation: datetime
 
     class Config:
         orm_mode = True
 
 
-from pydantic import BaseModel
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
-class TokenData(BaseModel):
-    username: str | None = None
 
-class User(BaseModel):
-    username: str
-    email: str | None = None
-    disabled: bool | None = None
+# from pydantic import BaseModel
 
-class UserInDB(User):
-    hashed_password: str
+# class Token(BaseModel):
+#     access_token: str
+#     token_type: str
+
+# class TokenData(BaseModel):
+#     username: str | None = None
+
+# class User(BaseModel):
+#     username: str
+#     email: str | None = None
+#     disabled: bool | None = None
+
+# class UserInDB(User):
+#     hashed_password: str

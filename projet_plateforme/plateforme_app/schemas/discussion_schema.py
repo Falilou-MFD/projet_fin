@@ -2,16 +2,20 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-class DiscussionBase(BaseModel):
-    title: str
-    content: str
 
-class DiscussionCreate(DiscussionBase):
-    pass
+class DiscussionCreate(BaseModel):
+    id_utilisateur: int
+    titre: str
+    sous_titre: str
+    contenu: str
 
-class Discussion(DiscussionBase):
+class Discussion(BaseModel):
     id: int
-    created_at: datetime
+    id_utilisateur: int
+    titre: str
+    sous_titre: str
+    contenu: str
+    creation: datetime
 
     class Config:
         orm_mode = True

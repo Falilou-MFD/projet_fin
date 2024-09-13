@@ -3,15 +3,16 @@ from typing import List, Optional
 from datetime import datetime
 
 class MessageBase(BaseModel):
-    content: str
-    discussion_id: int
+    id_utilisateur: int
+    id_discussion: int
+    contenu: str
 
 class MessageCreate(MessageBase):
     pass
 
 class Message(MessageBase):
     id: int
-    created_at: datetime
+    creation: datetime
 
     class Config:
         orm_mode = True

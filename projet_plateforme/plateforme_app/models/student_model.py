@@ -6,9 +6,12 @@ from datetime import datetime
 Base = declarative_base()
 
 class Student(Base):
-    __tablename__ = "students"
-    id = Column(Integer, primary_key=True, index=True)
-    num_etu = Column(String, unique=True, index=True)
-    name = Column(String)
+    __tablename__ = "etudiants"
+    num_etu = Column(Integer, primary_key=True, unique=True, index=True)
     email = Column(String, unique=True, index=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    mdp = Column(String)
+    prenom = Column(String)
+    nom = Column(String)
+    dob = Column(String)
+    niveau = Column(String)
+    creation = Column(DateTime, default=datetime.utcnow)

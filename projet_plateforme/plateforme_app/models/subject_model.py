@@ -6,8 +6,11 @@ from datetime import datetime
 Base = declarative_base()
 
 class Subject(Base):
-    __tablename__ = "subjects"
+    __tablename__ = "sujets"
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    description = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    chemin = Column(String)
+    module= Column(String)
+    niveau = Column(String)
+    enseignant = Column(String)
+    annee_pub = Column(String)
+    creation = Column(DateTime, default=datetime.utcnow)

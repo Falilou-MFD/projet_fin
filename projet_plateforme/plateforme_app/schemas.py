@@ -41,6 +41,7 @@ class ForumUserBase(BaseModel):
 class ForumUserCreate(ForumUserBase):
     password: str
 
+
 class ForumUser(ForumUserBase):
     id: int
     created_at: datetime

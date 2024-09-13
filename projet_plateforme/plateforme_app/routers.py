@@ -17,6 +17,8 @@ from models.subject_model import Subject
 from schemas.subject_schema import SubjectCreate
 from models.student_model import Student
 from schemas.student_schema import StudentCreate
+from . import schemas
+from typing import List
 
 app = FastAPI()
 
@@ -49,7 +51,7 @@ def fetch_single_discussion(id: int, db: Session = Depends(get_db)):
     return crud.get_discussion(db, id=id)
 
 
-@app.post("/forum/users", response_model=ForumUser)
+@app.post("/forum/users", response_model=ForumUserCreate)
 def create_forum_user(forum_user: ForumUserCreate, db: Session = Depends(get_db)):
     return crud.create_forum_user(db=db, forum_user=forum_user)
 
@@ -57,14 +59,12 @@ def create_forum_user(forum_user: ForumUserCreate, db: Session = Depends(get_db)
 # def fetch_forum_user(id: int, db: Session = Depends(get_db)):
 #     return crud.get_forum_user_by_id(db, id=id)
 
-@app.get("/forum/users/{id}", response_model=None)
-
-# @app.get("/forum/users/{id}", response_model=ForumUser)
-# def fetch_forum_user(id: int, db: Session = Depends(get_db)):
-#     db_forum_user = crud.get_forum_user_by_id(db, id=id)
-#     if not db_forum_user:
-#         raise HTTPException(status_code=404, detail="ForumUser not found")
-#     return db_forum_user
+@app.get("/forum/users/{id}", response_model=(schemas.ForumUser))
+def fetch_forum_user(id: int, db: Session = Depends(get_db)):
+    db_forum_user = crud.get_forum_user(db, id=id)
+    if not db_forum_user:
+        raise HTTPException(status_code=404, detail="ForumUser not found")
+    return db_forum_user
 
 @app.post("/messages", response_model=Message)
 def create_message(message: MessageCreate, db: Session = Depends(get_db)):

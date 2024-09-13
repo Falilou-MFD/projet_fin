@@ -3,39 +3,33 @@ from sqlalchemy.orm import Session
 from models.student_model import Student
 from schemas.student_schema import StudentCreate
 from auth import get_password_hash
+from .. import models, schemas
 
-def create_student(db: Session, student: StudentCreate):
-    hashed_password = get_password_hash(student.password)  # Hacher le mot de passe
-    db_student = Student(
-        num_etu=student.num_etu,
-        name=student.name,
-        email=student.email,
-        hashed_password=hashed_password  # Enregistrer le mot de passe haché
-    )
+def get_student(db: Session, student_id: int):
+    return db.query(models.Student).filter(models.Student.num_etu == student_id).first()
+
+def get_students(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(models.Student).offset(skip).limit(limit).all()
+
+def create_student(db: Session, student: schemas.StudentCreate):
+    db_student = models.Student(**student.dict())
     db.add(db_student)
     db.commit()
     db.refresh(db_student)
     return db_student
 
-def get_student_by_num_etu(db: Session, num_etu: str):
-    return db.query(Student).filter(Student.num_etu == num_etu).first()
-
-def get_all_students(db: Session):
-    return db.query(Student).all()
-
-def update_student(db: Session, num_etu: str, updated_student: StudentCreate):
-    student = get_student_by_num_etu(db, num_etu)
-    if student:
-        for key, value in updated_student.dict().items():
-            setattr(student, key, value)
+def update_student(db: Session, student_id: int, student: schemas.StudentCreate):
+    db_student = db.query(models.Student).filter(models.Student.num_etu == student_id).first()
+    if db_student:
+        for key, value in student.dict().items():
+            setattr(db_student, key, value)
         db.commit()
-        db.refresh(student)
-    return student
+        db.refresh(db_student)
+    return db_student
 
-def delete_student(db: Session, num_etu: str):
-    student = get_student_by_num_etu(db, num_etu)
-    if student:
-        db.delete(student)
+def delete_student(db: Session, student_id: int):
+    db_student = db.query(models.Student).filter(models.Student.num_etu == student_id).first()
+    if db_student:
+        db.delete(db_student)
         db.commit()
-    return student
-
+    return db_student

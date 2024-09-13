@@ -3,36 +3,30 @@ from sqlalchemy.orm import Session
 from ..models.forum_user_model import ForumUser
 from ..schemas.forum_user_schema import ForumUserCreate
 from ..auth import get_password_hash
+from .. import schemas, models
 
-def create_forum_user(db: Session, forum_user: ForumUserCreate):
-    hashed_password = get_password_hash(forum_user.password)  # Hacher le mot de passe
-    db_forum_user = ForumUser(
-        username=forum_user.username,
-        hashed_password=hashed_password  # Enregistrer le mot de passe haché
-    )
-    db.add(db_forum_user)
+def create_forum_user(db: Session, user: schemas.ForumUserCreate):
+    db_user = models.ForumUser(**user.dict())
+    db.add(db_user)
     db.commit()
-    db.refresh(db_forum_user)
-    return db_forum_user
+    db.refresh(db_user)
+    return db_user
 
 def get_forum_user_by_id(db: Session, user_id: int):
-    return db.query(ForumUser).filter(ForumUser.id == user_id).first()
+    return db.query(models.ForumUser).filter(models.ForumUser.id == user_id).first()
 
-def get_all_forum_users(db: Session):
-    return db.query(ForumUser).all()
-
-def update_forum_user(db: Session, user_id: int, updated_forum_user: ForumUserCreate):
-    forum_user = get_forum_user_by_id(db, user_id)
-    if forum_user:
-        for key, value in updated_forum_user.dict().items():
-            setattr(forum_user, key, value)
+def update_forum_user(db: Session, user_id: int, user: schemas.ForumUserUpdate):
+    db_user = get_forum_user_by_id(db, user_id=user_id)
+    if db_user:
+        for key, value in user.dict(exclude_unset=True).items():
+            setattr(db_user, key, value)
         db.commit()
-        db.refresh(forum_user)
-    return forum_user
+        db.refresh(db_user)
+    return db_user
 
 def delete_forum_user(db: Session, user_id: int):
-    forum_user = get_forum_user_by_id(db, user_id)
-    if forum_user:
-        db.delete(forum_user)
+    db_user = get_forum_user_by_id(db, user_id=user_id)
+    if db_user:
+        db.delete(db_user)
         db.commit()
-    return forum_user
+    return db_user

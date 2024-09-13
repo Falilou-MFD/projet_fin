@@ -1,29 +1,33 @@
 from sqlalchemy.orm import Session
 from models.message_model import Message
 from schemas.message_schema import MessageCreate
+from .. import models, schemas
 
-def create_message(db: Session, message: MessageCreate):
-    db_message = Message(**message.dict())
+def get_message(db: Session, message_id: int):
+    return db.query(models.Message).filter(models.Message.id == message_id).first()
+
+def get_messages(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(models.Message).offset(skip).limit(limit).all()
+
+def create_message(db: Session, message: schemas.MessageCreate):
+    db_message = models.Message(**message.dict())
     db.add(db_message)
     db.commit()
     db.refresh(db_message)
     return db_message
 
-def get_messages_by_discussion(db: Session, discussion_id: int):
-    return db.query(Message).filter(Message.discussion_id == discussion_id).all()
-
-def update_message(db: Session, message_id: int, updated_message: MessageCreate):
-    message = db.query(Message).filter(Message.id == message_id).first()
-    if message:
-        for key, value in updated_message.dict().items():
-            setattr(message, key, value)
+def update_message(db: Session, message_id: int, message: schemas.MessageCreate):
+    db_message = db.query(models.Message).filter(models.Message.id == message_id).first()
+    if db_message:
+        for key, value in message.dict().items():
+            setattr(db_message, key, value)
         db.commit()
-        db.refresh(message)
-    return message
+        db.refresh(db_message)
+    return db_message
 
 def delete_message(db: Session, message_id: int):
-    message = db.query(Message).filter(Message.id == message_id).first()
-    if message:
-        db.delete(message)
+    db_message = db.query(models.Message).filter(models.Message.id == message_id).first()
+    if db_message:
+        db.delete(db_message)
         db.commit()
-    return message
+    return db_message

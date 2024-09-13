@@ -3,15 +3,18 @@ from typing import List, Optional
 from datetime import datetime
 
 class SubjectBase(BaseModel):
-    title: str
-    description: str
+    chemin: str
+    module: str
+    niveau: str
+    enseignant: str
+    annee_pub: str
 
 class SubjectCreate(SubjectBase):
     pass
 
 class Subject(SubjectBase):
     id: int
-    created_at: datetime
+    creation: datetime
 
     class Config:
         orm_mode = True

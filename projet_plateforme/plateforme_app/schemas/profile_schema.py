@@ -2,16 +2,20 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
+
 class ProfileBase(BaseModel):
-    bio: str
-    student_id: int
+    num_etu: int
+    annee_exp: str
+    competences: str
+    specialisation: str
+    chemin_cv: str
 
 class ProfileCreate(ProfileBase):
     pass
 
 class Profile(ProfileBase):
     id: int
-    created_at: datetime
+    creation: datetime
 
     class Config:
         orm_mode = True
