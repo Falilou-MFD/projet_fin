@@ -9,7 +9,7 @@ Base = declarative_base()
 
 class Admin(Base):
     __tablename__ = "administrations"
-    num_admin = Column(String, unique=True, index=True)
+    num_admin = Column(String,primary_key=True, unique=True, index=True)
     email = Column(String, unique=True, index=True)
     mdp = Column(String)
     prenom = Column(String)
